@@ -13,7 +13,6 @@ const quickLinks = [
 
 const supportLinks = [
   { href: site.social.instagram, label: "Instagram", external: true },
-  { href: site.social.medium, label: "Therapy blog", external: true },
   { href: site.social.linkedin, label: "LinkedIn", external: true },
 ];
 

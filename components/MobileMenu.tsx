@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import { X } from "lucide-react";
+import { X, ArrowUpRight } from "lucide-react";
 import { site } from "@/data/site";
 import { Logo } from "@/components/Logo";
 import { WhatsAppButton } from "@/components/WhatsAppButton";
@@ -13,79 +13,223 @@ type MobileMenuProps = {
   panelId: string;
 };
 
-export function MobileMenu({ open, onClose, panelId }: MobileMenuProps) {
+export function MobileMenu({
+  open,
+  onClose,
+  panelId,
+}: MobileMenuProps) {
   const panelRef = useRef<HTMLDivElement>(null);
 
+  /*
+   * Focus the first navigation link when menu opens.
+   */
   useEffect(() => {
     if (!open) return;
-    const firstLink = panelRef.current?.querySelector("a");
+
+    const firstLink =
+      panelRef.current?.querySelector<HTMLAnchorElement>(
+        "nav a"
+      );
+
     firstLink?.focus();
   }, [open]);
 
+  /*
+   * Close menu with Escape.
+   */
   useEffect(() => {
     if (!open) return;
-    const onPointer = (event: PointerEvent) => {
-      const target = event.target as Node;
-      if (panelRef.current && !panelRef.current.contains(target)) {
+
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
         onClose();
       }
     };
-    document.addEventListener("pointerdown", onPointer);
-    return () => document.removeEventListener("pointerdown", onPointer);
+
+    document.addEventListener("keydown", handleKeyDown);
+
+    return () => {
+      document.removeEventListener("keydown", handleKeyDown);
+    };
   }, [open, onClose]);
+
+  /*
+   * Prevent the page behind the drawer from scrolling.
+   */
+  useEffect(() => {
+    if (!open) return;
+
+    const originalOverflow = document.body.style.overflow;
+
+    document.body.style.overflow = "hidden";
+
+    return () => {
+      document.body.style.overflow = originalOverflow;
+    };
+  }, [open]);
+
+  /*
+   * Close when clicking the backdrop.
+   */
+  const handleBackdropClick = () => {
+    onClose();
+  };
 
   return (
     <div
       className={cn(
-        "fixed inset-0 z-40 lg:hidden",
-        open ? "pointer-events-auto" : "pointer-events-none",
+        "fixed inset-0 z-[100] lg:hidden",
+        open
+          ? "pointer-events-auto"
+          : "pointer-events-none"
       )}
       aria-hidden={!open}
     >
-      <div
+      {/* Backdrop */}
+      <button
+        type="button"
+        aria-label="Close navigation menu"
+        tabIndex={open ? 0 : -1}
+        onClick={handleBackdropClick}
         className={cn(
-          "absolute inset-0 bg-deep-teal/20 transition-opacity duration-300",
-          open ? "opacity-100" : "opacity-0",
+          "absolute inset-0 bg-deep-teal/30 backdrop-blur-[2px]",
+          "transition-opacity duration-300",
+          "motion-reduce:transition-none",
+          open
+            ? "opacity-100"
+            : "opacity-0"
         )}
       />
+
+      {/* Drawer */}
       <div
         ref={panelRef}
         id={panelId}
+        role="dialog"
+        aria-modal="true"
+        aria-label="Mobile navigation"
         className={cn(
-          "absolute inset-y-0 right-0 flex h-full w-full max-w-sm flex-col overflow-x-hidden bg-ivory transition-transform duration-300 ease-out motion-reduce:transition-none",
-          open ? "translate-x-0" : "translate-x-full",
+          "absolute right-0 top-0 flex h-[100dvh] w-[min(88vw,24rem)] flex-col",
+          "overflow-hidden",
+          "bg-ivory",
+          "border-l border-white/70",
+          "rounded-l-[2rem]",
+          "shadow-[-20px_0_60px_rgba(23,63,58,0.14)]",
+          "transition-transform duration-300 ease-out",
+          "motion-reduce:transition-none",
+          open
+            ? "translate-x-0"
+            : "translate-x-full"
         )}
       >
-        <div className="flex h-[4.75rem] items-center justify-between border-b border-border px-5">
-          <a href="#home" onClick={onClose} className="min-h-11 min-w-0 py-1">
+        {/* Drawer header */}
+        <div
+          className={cn(
+            "flex shrink-0 items-center justify-between",
+            "border-b border-deep-teal/10",
+            "px-5 py-4",
+            "pt-[max(1rem,env(safe-area-inset-top))]"
+          )}
+        >
+          <a
+            href="#home"
+            onClick={onClose}
+            className="flex min-h-11 items-center rounded-lg focus:outline-none focus:ring-2 focus:ring-deep-teal/30"
+            aria-label="Go to home"
+          >
             <Logo compact />
           </a>
+
           <button
             type="button"
-            className="inline-flex min-h-11 min-w-11 items-center justify-center rounded-full border border-border text-deep-teal"
-            aria-label="Close menu"
             onClick={onClose}
+            className={cn(
+              "flex h-11 w-11 shrink-0 items-center justify-center",
+              "rounded-full",
+              "border border-deep-teal/10",
+              "bg-white/50",
+              "text-deep-teal",
+              "transition-all duration-200",
+              "hover:bg-sage/40",
+              "active:scale-95",
+              "focus:outline-none focus:ring-2 focus:ring-deep-teal/30"
+            )}
+            aria-label="Close menu"
           >
-            <X size={20} />
+            <X
+              size={21}
+              strokeWidth={1.8}
+            />
           </button>
         </div>
-        <nav aria-label="Mobile" className="flex flex-1 flex-col px-6 py-8">
-          {site.nav.map((item) => (
-            <a
-              key={item.href}
-              href={item.href}
-              className="flex min-h-14 items-center border-b border-border font-serif text-[1.65rem] tracking-[-0.02em] text-deep-teal"
-              onClick={onClose}
-            >
-              {item.label}
-            </a>
-          ))}
-          <div className="mt-auto pt-8 pb-6">
-            <WhatsAppButton className="w-full" showIcon={false}>
-              Get started
-            </WhatsAppButton>
+
+        {/* Navigation */}
+        <nav
+          aria-label="Mobile navigation"
+          className="flex min-h-0 flex-1 flex-col overflow-y-auto px-5 py-6"
+        >
+          {/* Small label */}
+          <p className="mb-3 px-2 text-[0.68rem] font-medium uppercase tracking-[0.2em] text-[#5a6d66]/70">
+            Explore
+          </p>
+
+          {/* Links */}
+          <div className="flex flex-col">
+            {site.nav.map((item, index) => (
+              <a
+                key={item.href}
+                href={item.href}
+                onClick={onClose}
+                className={cn(
+                  "group flex min-h-[4rem] items-center justify-between",
+                  "border-b border-deep-teal/10",
+                  "px-2",
+                  "font-serif text-[1.55rem]",
+                  "tracking-[-0.025em]",
+                  "text-deep-teal",
+                  "transition-colors duration-200",
+                  "hover:text-sage-dark",
+                  "focus:outline-none focus:ring-2 focus:ring-deep-teal/20"
+                )}
+              >
+                <span>{item.label}</span>
+
+                <ArrowUpRight
+                  size={19}
+                  strokeWidth={1.7}
+                  className={cn(
+                    "text-deep-teal/35",
+                    "transition-transform duration-200",
+                    "group-hover:translate-x-0.5",
+                    "group-hover:-translate-y-0.5",
+                    index === site.nav.length - 1 &&
+                      "text-deep-teal/50"
+                  )}
+                />
+              </a>
+            ))}
+          </div>
+
+          {/* Bottom CTA */}
+          <div className="mt-auto pt-8">
+            <div className="rounded-[1.5rem] bg-sage/25 p-4">
+              <p className="mb-3 px-1 text-sm leading-relaxed text-deep-teal/70">
+                Ready to take the next step toward a healthier,
+                more balanced you?
+              </p>
+
+              <WhatsAppButton
+                className="w-full justify-center"
+                showIcon={false}
+              >
+                Get started
+              </WhatsAppButton>
+            </div>
           </div>
         </nav>
+
+        {/* Bottom safe-area spacing */}
+        <div className="h-[max(0.75rem,env(safe-area-inset-bottom))] shrink-0" />
       </div>
     </div>
   );
