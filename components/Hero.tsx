@@ -2,91 +2,126 @@ import { site } from "@/data/site";
 import { Portrait } from "@/components/Portrait";
 import { WhatsAppButton } from "@/components/WhatsAppButton";
 import { Mark, type MarkName } from "@/components/Icons";
-import { DoodleFern, DoodleOlive } from "@/components/Doodles";
 
 export function Hero() {
   return (
     <section
       id="home"
       aria-labelledby="hero-heading"
-      className="hero-shell overflow-x-hidden bg-ivory"
+      className="hero-shell relative overflow-hidden bg-ivory"
     >
-      <div className="mx-auto max-w-6xl px-4 pb-12 pt-5 sm:px-6 lg:px-8 lg:pb-16 lg:pt-8">
-        <div className="grid items-center gap-7 lg:grid-cols-[0.9fr_1.1fr] lg:gap-8 xl:gap-10">
+      {/* Soft background */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0 overflow-hidden"
+      >
+        <div className="absolute -left-24 top-20 h-96 w-96 rounded-full bg-sage/8 blur-3xl sm:-left-32 sm:h-128 sm:w-lg" />
 
-          {/* Left: Hero content */}
-          <div className="hero-copy order-1 lg:pr-6">
-            <p className="eyebrow tracking-[0.16em] text-[#5a6d66]">
+        <div className="absolute -right-24 top-24 h-96 w-96 rounded-full bg-sage/8 blur-3xl sm:-right-32 sm:h-136 sm:w-136" />
+      </div>
+
+      <div className="relative z-10 mx-auto max-w-6xl px-3 pb-12 pt-6 sm:px-5 sm:pb-16 sm:pt-8 lg:px-8 lg:pb-20 lg:pt-12">
+        <div className="grid grid-cols-[minmax(0,0.92fr)_minmax(0,1.08fr)] items-center gap-3 sm:gap-6 md:gap-8 lg:gap-12">
+
+          {/* LEFT CONTENT */}
+          <div className="min-w-0">
+            <p className="eyebrow text-[0.48rem] tracking-[0.14em] text-[#5a6d66] sm:text-[0.62rem] sm:tracking-[0.16em] lg:text-[0.75rem]">
               {site.heroKicker}
             </p>
 
             <h1
               id="hero-heading"
-              className="mt-5 max-w-none font-serif leading-[0.86] tracking-[-0.06em] text-deep-teal text-[clamp(3rem,6vw,6.8rem)] lg:mt-6 lg:max-w-[11ch]"
+              className="mt-3 max-w-xl font-serif text-[clamp(1.9rem,6vw,6.5rem)] leading-[0.88] tracking-[-0.055em] text-deep-teal sm:mt-4 md:text-[clamp(2.6rem,5.5vw,5.5rem)] lg:mt-6 lg:leading-[0.86]"
             >
-              Strength, Balance &amp; Wellness
+              Strength,
+              <br />
+              Balance
+              <br />
+              &amp; Wellness
             </h1>
 
-            <p className="mt-6 max-w-[40ch] text-[0.98rem] leading-[1.7] text-muted sm:text-[1.05rem] lg:text-[1.12rem]">
+            <p className="mt-4 max-w-124 text-[0.68rem] leading-[1.55] text-muted sm:mt-6 sm:text-[0.86rem] sm:leading-[1.65] md:text-[0.98rem] lg:mt-8 lg:text-[1.08rem]">
               {site.heroIntro}
             </p>
 
-            <div className="mt-8">
-              <WhatsAppButton>Contact me WhatsApp</WhatsAppButton>
+            <div className="mt-5 sm:mt-7 lg:mt-8">
+              <WhatsAppButton
+                showIcon={true}
+                className="text-[0.68rem] sm:text-[0.78rem] md:text-sm"
+              >
+                Connect with me on WhatsApp
+              </WhatsAppButton>
             </div>
 
-            <ul className="mt-10 flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:gap-x-8 sm:gap-y-3 lg:mt-12">
+            {/* TRUST INDICATORS */}
+            <ul className="mt-6 grid max-w-xl grid-cols-3 gap-2 border-t border-deep-teal/10 pt-4 sm:mt-8 sm:gap-4 sm:pt-5 lg:mt-12 lg:pt-6">
               {site.trust.map((item) => (
                 <li
                   key={item.title}
-                  className="flex items-center gap-2.5 text-[0.78rem] font-medium tracking-[0.02em] text-deep-teal"
+                  className="flex min-w-0 items-center gap-1.5 text-[0.52rem] font-medium leading-tight tracking-[0.01em] text-deep-teal sm:gap-2.5 sm:text-[0.68rem] lg:text-[0.78rem]"
                 >
-                  <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-sage text-sage-dark shadow-[inset_0_0_0_1px_rgba(23,63,58,0.06)]">
+                  <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-sage text-sage-dark shadow-[inset_0_0_0_1px_rgba(23,63,58,0.06)] sm:h-8 sm:w-8 lg:h-9 lg:w-9">
                     <Mark
                       name={item.icon as MarkName}
-                      className="[&_svg]:h-4 [&_svg]:w-4"
+                      className="[&_svg]:h-3 [&_svg]:w-3 sm:[&_svg]:h-3.5 sm:[&_svg]:w-3.5 lg:[&_svg]:h-4 lg:[&_svg]:w-4"
                     />
                   </span>
 
-                  {item.title}
+                  <span className="min-w-0">{item.title}</span>
                 </li>
               ))}
             </ul>
           </div>
 
-          {/* Right: Portrait */}
-          <div className="relative order-2 w-full lg:order-2">
-            <div className="relative mx-auto w-full max-w-[24rem] sm:max-w-[28rem] lg:max-w-[34rem] xl:max-w-[36rem]">
+          {/* RIGHT SIDE */}
+          <div className="relative min-w-0">
+            <div className="relative mx-auto w-full max-w-xl">
 
-              {/* Decorative olive */}
-              <DoodleOlive
-                className="pointer-events-none absolute -left-5 bottom-8 hidden h-28 w-[4.5rem] text-sage-dark/25 lg:block"
-                delay="0.35s"
-              />
+              {/* Portrait shadow */}
+              <div className="absolute inset-0 translate-x-1.5 translate-y-1.5 rounded-2xl bg-sage/18 sm:translate-x-2 sm:translate-y-2 sm:rounded-3xl lg:translate-x-3 lg:translate-y-3 lg:rounded-4xl" />
 
-              {/* Decorative fern */}
-              <DoodleFern
-                className="pointer-events-none absolute -right-2 top-8 hidden h-32 w-20 text-sage-dark/22 lg:block"
-                delay="0.55s"
-              />
-
-              {/* Portrait frame */}
-              <div className="hero-arch relative overflow-hidden rounded-[1.85rem] border border-white/60 bg-sage/10 shadow-[0_20px_60px_rgba(23,63,58,0.08)] sm:rounded-[2.2rem] lg:rounded-[2.6rem]">
-
-                <div className="relative aspect-[3/4.1] sm:aspect-[4/4.8] lg:h-[38rem] lg:aspect-auto xl:h-[40rem]">
-
+              {/* MAIN PORTRAIT */}
+              <div className="relative rounded-2xl border border-white/80 bg-[#f3efe5] p-1.5 shadow-[0_20px_55px_rgba(23,63,58,0.10)] sm:rounded-3xl sm:p-2 lg:rounded-4xl">
+                <div className="relative aspect-[0.72] overflow-hidden rounded-xl sm:rounded-2xl lg:aspect-[0.75] lg:rounded-3xl">
                   <Portrait
                     priority
                     className="h-full w-full"
-                    objectPosition="50% 25%"
-                    sizes="(max-width: 640px) 84vw, (max-width: 1024px) 70vw, 34vw"
+                    objectPosition="50% 22%"
+                    sizes="(max-width: 640px) 48vw, (max-width: 1024px) 45vw, 40vw"
                   />
-
                 </div>
               </div>
+
+              {/* QUOTE CARD */}
+              <div className="absolute -right-5 top-[42%] z-40 hidden w-32 rounded-lg border border-white/80 bg-[#f8f5ec]/96 p-3 shadow-[0_15px_35px_rgba(23,63,58,0.12)] backdrop-blur-sm sm:block sm:-right-6 sm:w-36 sm:p-4 md:-right-8 md:w-40 lg:-right-10 lg:w-44 lg:p-5">
+                <div
+                  aria-hidden="true"
+                  className="mb-2 h-px w-6 bg-sage-dark/40 sm:mb-3 sm:w-8"
+                />
+
+                <blockquote className="text-[0.62rem] leading-[1.5] text-deep-teal sm:text-[0.72rem] md:text-[0.8rem] lg:text-[0.86rem] lg:leading-[1.6]">
+                  “{site.quote}”
+                </blockquote>
+
+                <p className="font-hand mt-3 text-[0.8rem] leading-[1.35] text-deep-teal/65 sm:mt-4 sm:text-[0.95rem] md:text-[1rem] lg:text-[1.1rem] lg:leading-[1.4]">
+                  {site.quoteSub}
+                </p>
+              </div>
+
+              {/* WELLNESS LABEL */}
+              <div className="absolute -bottom-4 left-2 z-30 max-w-[90%] rounded-full border border-white/80 bg-white/92 px-2.5 py-2 shadow-[0_10px_25px_rgba(23,63,58,0.10)] backdrop-blur-sm sm:left-3 sm:px-3.5 sm:py-2.5 lg:-bottom-5 lg:left-5 lg:px-4">
+                <span className="whitespace-nowrap text-[0.42rem] font-medium tracking-[0.06em] text-deep-teal sm:text-[0.55rem] lg:text-[0.68rem] lg:tracking-[0.08em]">
+                  WELLNESS • GUIDANCE • BALANCE
+                </span>
+              </div>
+
+              {/* Soft decorative glow */}
+              <div
+                aria-hidden="true"
+                className="pointer-events-none absolute -bottom-10 -left-8 -z-10 h-32 w-32 rounded-full bg-sage/10 blur-3xl sm:h-40 sm:w-40"
+              />
             </div>
           </div>
-
         </div>
       </div>
     </section>

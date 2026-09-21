@@ -13,10 +13,10 @@ type PortraitProps = {
 
 export function Portrait({
   className,
-  sizes = "(max-width: 40px) 100vw, (max-width: 24px) 80vw, 52vw",
+  sizes = "(max-width: 640px) 90vw, (max-width: 1024px) 70vw, 40vw",
   priority = false,
   loading = "eager",
-  objectPosition = "50% 20%",
+  objectPosition = "50% 50%",
   alt,
 }: PortraitProps) {
   return (
@@ -27,8 +27,14 @@ export function Portrait({
       priority={priority}
       loading={loading}
       sizes={sizes}
-      className={cn("object-cover object-center", className)}
-      style={{ objectPosition }}
+      className={cn(
+        "object-contain object-center scale-[0.90]",
+        "transition-transform duration-500",
+        className
+      )}
+      style={{
+        objectPosition,
+      }}
     />
   );
 }
