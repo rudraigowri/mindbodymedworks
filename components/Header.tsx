@@ -67,7 +67,7 @@ export function Header() {
         </nav>
 
         <div className="hidden lg:block">
-          <WhatsAppButton className="shadow-[0_14px_24px_-18px_rgba(23,63,58,0.85)]" showIcon={false}>Get started</WhatsAppButton>
+          <WhatsAppButton className="shadow-[0_14px_24px_-18px_rgba(23,63,58,0.85)]" showIcon={false}>Connect on WhatsApp</WhatsAppButton>
         </div>
 
         <button
