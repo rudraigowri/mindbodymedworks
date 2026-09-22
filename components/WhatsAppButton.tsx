@@ -1,22 +1,21 @@
-import type { ReactNode } from "react";
-import Image from "next/image";
+"use client";
+
+import { MessageCircle } from "lucide-react";
 import { getWhatsAppUrl } from "@/lib/whatsapp";
 import { cn } from "@/lib/utils";
 
 type WhatsAppButtonProps = {
+  children: React.ReactNode;
   message?: string;
-  children: ReactNode;
   className?: string;
-  variant?: "solid" | "outline";
   showIcon?: boolean;
 };
 
 export function WhatsAppButton({
-  message,
   children,
+  message,
   className,
-  variant = "solid",
-  showIcon = true,
+  showIcon = false,
 }: WhatsAppButtonProps) {
   return (
     <a
@@ -24,19 +23,11 @@ export function WhatsAppButton({
       target="_blank"
       rel="noopener noreferrer"
       className={cn(
-        variant === "outline" ? "btn-pill-outline" : "btn-pill",
-        className,
+        "inline-flex min-h-11 items-center justify-center gap-2 rounded-full bg-deep-teal px-5 py-3 text-sm font-medium text-white transition-all duration-300 hover:-translate-y-0.5 hover:bg-[#24534d]",
+        className
       )}
     >
-      {showIcon ? (
-        <Image
-          src="/icons/whatsapp.svg"
-          alt=""
-          width={18}
-          height={18}
-          className={variant === "solid" ? "brightness-0 invert" : ""}
-        />
-      ) : null}
+      {showIcon && <MessageCircle size={17} />}
       {children}
     </a>
   );
