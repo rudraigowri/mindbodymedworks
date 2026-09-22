@@ -68,9 +68,9 @@ export function Hero() {
                 lg:leading-[0.86]
               "
             >
-              Feel stronger.
+              Feel stronger,
               <br />
-              Think clearer.
+              Think clearer,
               <br />
               Live healthier.
             </h1>
