@@ -12,9 +12,7 @@ export function Hero() {
       aria-labelledby="hero-heading"
       className="hero-shell relative overflow-hidden bg-ivory"
     >
-      {/* =========================================================
-          SOFT BACKGROUND
-      ========================================================== */}
+      {/* Soft background */}
       <div
         aria-hidden="true"
         className="pointer-events-none absolute inset-0 overflow-hidden"
@@ -36,12 +34,11 @@ export function Hero() {
             <p
               className="
                 eyebrow
-                max-w-xs
+                max-w-md
                 text-[0.62rem]
                 tracking-[0.18em]
                 text-[#5a6d66]
                 sm:text-[0.7rem]
-                lg:max-w-md
                 lg:text-[0.75rem]
               "
             >
@@ -68,31 +65,30 @@ export function Hero() {
                 lg:leading-[0.86]
               "
             >
-              Feel stronger,
+              Stronger body,
               <br />
-              Think clearer,
+              Clearer mind,
               <br />
-              Live healthier.
+              Healthier life.
             </h1>
 
             {/* Main description */}
             <p
               className="
                 mt-6
-                max-w-[34ch]
+                max-w-[36rem]
                 text-[1rem]
                 leading-[1.65]
                 text-muted
                 sm:mt-7
                 sm:text-[1.05rem]
                 lg:mt-8
-                lg:max-w-[38rem]
                 lg:text-[1.08rem]
               "
             >
-              Specialized support for hormonal health, perimenopause and
-              menopause, weight and body composition, brain fog, stress, and
-              mental wellbeing.
+              Specialized support for hormonal imbalances, perimenopause and
+              menopause, unexplained weight gain and obesity, difficult fat
+              loss, muscle loss, brain fog, stress, and mental well-being.
             </p>
 
             {/* Approach */}
@@ -106,9 +102,9 @@ export function Hero() {
                 sm:text-[0.95rem]
               "
             >
-              Through movement, kinesiology, personalised nutrition and
-              mental-health therapies, we bring body and mind together for
-              lasting wellbeing.
+              Through movement, kinesiology, personalized nutrition, and
+              mental-health therapies, we work toward a stronger body, clearer
+              mind, and healthier life.
             </p>
 
             {/* CTA */}
@@ -280,10 +276,7 @@ export function Hero() {
                 </div>
               </div>
 
-              {/* =====================================================
-                  DESKTOP QUOTE
-                  Hidden on mobile to keep the hero clean.
-              ====================================================== */}
+              {/* Desktop quote */}
               <div
                 className="
                   absolute
