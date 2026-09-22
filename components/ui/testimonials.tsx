@@ -1,14 +1,21 @@
 "use client";
 
 import { useCallback, useEffect, useState } from "react";
-import { ChevronLeft, ChevronRight, Pause, Play } from "lucide-react";
+import {
+  ChevronLeft,
+  ChevronRight,
+  MapPin,
+  Pause,
+  Play,
+  Quote,
+} from "lucide-react";
 import { cn } from "@/lib/utils";
 
 export type EditorialTestimonial = {
   id: number;
-  quote: string;
   author: string;
   location: string;
+  quote: string;
 };
 
 type TestimonialsEditorialProps = {
@@ -19,11 +26,9 @@ type TestimonialsEditorialProps = {
 };
 
 function getInitials(name: string) {
-  const words = name
-    .replace(/^Dr\.\s*/i, "")
-    .trim()
-    .split(/\s+/)
-    .filter(Boolean);
+  const cleanName = name.replace(/^Dr\.\s*/i, "").trim();
+
+  const words = cleanName.split(/\s+/).filter(Boolean);
 
   if (words.length === 1) {
     return words[0].slice(0, 2).toUpperCase();
@@ -93,7 +98,13 @@ export default function TestimonialsEditorial({
     }, interval);
 
     return () => window.clearInterval(timer);
-  }, [autoPlay, interval, isPaused, nextSlide, testimonials.length]);
+  }, [
+    autoPlay,
+    interval,
+    isPaused,
+    nextSlide,
+    testimonials.length,
+  ]);
 
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
@@ -119,21 +130,24 @@ export default function TestimonialsEditorial({
 
   const current = testimonials[active];
 
+  // Each blank line becomes a separate paragraph.
+  const paragraphs = current.quote
+    .split(/\n\s*\n/)
+    .map((paragraph) => paragraph.trim())
+    .filter(Boolean);
+
   return (
     <div
-      className={cn(
-        "mx-auto w-full max-w-5xl",
-        className
-      )}
+      className={cn("mx-auto w-full max-w-5xl", className)}
       onMouseEnter={() => setIsPaused(true)}
       onMouseLeave={() => setIsPaused(false)}
     >
       {/* =====================================================
           HEADER
       ====================================================== */}
-      <div className="mb-12 flex flex-col gap-5 sm:mb-16 sm:flex-row sm:items-end sm:justify-between">
+      <div className="mb-12 flex flex-col gap-5 sm:mb-16 lg:flex-row lg:items-end lg:justify-between">
         <div>
-          <p className="mb-4 text-[0.68rem] font-medium uppercase tracking-[0.22em] text-deep-teal/55">
+          <p className="mb-4 text-[0.65rem] font-medium uppercase tracking-[0.24em] text-deep-teal/50">
             Testimonials
           </p>
 
@@ -153,14 +167,14 @@ export default function TestimonialsEditorial({
           </h2>
         </div>
 
-        <p className="max-w-sm text-sm leading-7 text-muted sm:text-right">
+        <p className="max-w-sm text-sm leading-7 text-muted lg:text-right">
           Real experiences from people who have worked towards a
           healthier, stronger and more balanced life.
         </p>
       </div>
 
       {/* =====================================================
-          MAIN TESTIMONIAL
+          TESTIMONIAL
       ====================================================== */}
       <div className="grid gap-8 lg:grid-cols-[150px_minmax(0,1fr)] lg:gap-12">
         {/* Large number */}
@@ -188,47 +202,62 @@ export default function TestimonialsEditorial({
           </p>
         </div>
 
-        {/* Testimonial content */}
+        {/* Content */}
         <div className="min-w-0">
           <div
             className={cn(
-              "min-h-[280px] transition-all duration-300 sm:min-h-[250px]",
+              "transition-all duration-300",
               isTransitioning
                 ? "translate-x-4 opacity-0"
                 : "translate-x-0 opacity-100"
             )}
           >
-            {/* Quote mark */}
+            {/* Quote icon */}
             <div
-              aria-hidden="true"
               className="
-                mb-5
-                font-serif
-                text-5xl
-                leading-none
-                text-sage-dark/35
+                mb-6
+                flex
+                h-10
+                w-10
+                items-center
+                justify-center
+                rounded-full
+                bg-sage
+                text-sage-dark
               "
+              aria-hidden="true"
             >
-              “
+              <Quote className="h-4 w-4" />
             </div>
 
-            {/* Quote */}
-            <blockquote
-              className="
-                max-w-4xl
-                font-serif
-                text-[clamp(1.35rem,2.6vw,2.35rem)]
-                font-normal
-                leading-[1.45]
-                tracking-[-0.025em]
-                text-deep-teal
-              "
-            >
-              {current.quote}
-            </blockquote>
+            {/* =================================================
+                PARAGRAPHS
+            ================================================== */}
+            <div className="max-w-4xl space-y-6">
+              {paragraphs.map((paragraph, index) => (
+                <p
+                  key={`${current.id}-${index}`}
+                  className="
+                    font-serif
+                    text-[1.08rem]
+                    leading-[1.8]
+                    tracking-[-0.01em]
+                    text-deep-teal
+                    sm:text-[1.18rem]
+                    sm:leading-[1.85]
+                    lg:text-[1.28rem]
+                    lg:leading-[1.85]
+                  "
+                >
+                  {paragraph}
+                </p>
+              ))}
+            </div>
 
-            {/* Author */}
-            <div className="mt-10 flex items-center gap-4">
+            {/* =================================================
+                AUTHOR
+            ================================================== */}
+            <div className="mt-10 flex items-center gap-4 border-t border-deep-teal/10 pt-7 sm:mt-12">
               {/* Initial avatar */}
               <div
                 className="
@@ -252,14 +281,20 @@ export default function TestimonialsEditorial({
                 {getInitials(current.author)}
               </div>
 
-              <div>
+              <div className="min-w-0">
                 <p className="font-medium text-deep-teal">
                   {current.author}
                 </p>
 
-                <p className="mt-1 text-sm text-muted">
-                  {current.location}
-                </p>
+                {/* Location with icon */}
+                <div className="mt-1 flex items-center gap-1.5 text-sm text-muted">
+                  <MapPin
+                    className="h-3.5 w-3.5 shrink-0 text-sage-dark"
+                    aria-hidden="true"
+                  />
+
+                  <span>{current.location}</span>
+                </div>
               </div>
             </div>
           </div>
@@ -267,7 +302,7 @@ export default function TestimonialsEditorial({
       </div>
 
       {/* =====================================================
-          MOBILE NUMBER
+          MOBILE STATUS
       ====================================================== */}
       <div className="mt-8 flex items-center justify-between border-t border-deep-teal/10 pt-5 lg:hidden">
         <span className="text-xs font-medium uppercase tracking-[0.18em] text-deep-teal/45">
@@ -281,11 +316,11 @@ export default function TestimonialsEditorial({
       </div>
 
       {/* =====================================================
-          CONTROLS
+          NAVIGATION
       ====================================================== */}
-      <div className="mt-10 flex items-center justify-between border-t border-deep-teal/10 pt-6 sm:mt-14">
-        {/* Progress */}
-        <div className="flex min-w-0 items-center gap-3 overflow-x-auto">
+      <div className="mt-8 flex items-center justify-between border-t border-deep-teal/10 pt-5 sm:mt-12 sm:pt-6">
+        {/* Progress indicators */}
+        <div className="flex min-w-0 items-center gap-1.5 overflow-x-auto">
           {testimonials.map((testimonial, index) => (
             <button
               key={testimonial.id}
@@ -293,21 +328,21 @@ export default function TestimonialsEditorial({
               onClick={() => changeSlide(index)}
               aria-label={`Show testimonial ${index + 1}`}
               aria-current={index === active ? "true" : undefined}
-              className="group shrink-0 py-3"
+              className="group shrink-0 px-1 py-3"
             >
               <span
                 className={cn(
                   "block h-px transition-all duration-500",
                   index === active
-                    ? "w-12 bg-deep-teal"
-                    : "w-5 bg-deep-teal/20 group-hover:w-8 group-hover:bg-deep-teal/40"
+                    ? "w-10 bg-deep-teal sm:w-12"
+                    : "w-4 bg-deep-teal/20 group-hover:w-7 group-hover:bg-deep-teal/40"
                 )}
               />
             </button>
           ))}
         </div>
 
-        {/* Navigation */}
+        {/* Controls */}
         <div className="ml-4 flex shrink-0 items-center gap-1">
           <button
             type="button"
@@ -352,9 +387,13 @@ export default function TestimonialsEditorial({
           <button
             type="button"
             onClick={() => setIsPaused((value) => !value)}
-            aria-label={isPaused ? "Play testimonials" : "Pause testimonials"}
+            aria-label={
+              isPaused
+                ? "Play testimonials"
+                : "Pause testimonials"
+            }
             className="
-              ml-2
+              ml-1
               flex
               h-10
               w-10
