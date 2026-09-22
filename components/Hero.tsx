@@ -1,3 +1,5 @@
+import { ArrowUpRight } from "lucide-react";
+
 import { site } from "@/data/site";
 import { Portrait } from "@/components/Portrait";
 import { WhatsAppButton } from "@/components/WhatsAppButton";
@@ -10,7 +12,9 @@ export function Hero() {
       aria-labelledby="hero-heading"
       className="hero-shell relative overflow-hidden bg-ivory"
     >
-      {/* Soft background */}
+      {/* =========================================================
+          SOFT BACKGROUND
+      ========================================================== */}
       <div
         aria-hidden="true"
         className="pointer-events-none absolute inset-0 overflow-hidden"
@@ -21,14 +25,6 @@ export function Hero() {
       </div>
 
       <div className="relative z-10 mx-auto max-w-6xl px-5 pb-16 pt-10 sm:px-6 sm:pb-20 sm:pt-12 lg:px-8 lg:pb-20 lg:pt-16">
-
-        {/* 
-          MOBILE:
-          single column
-
-          DESKTOP:
-          two columns
-        */}
         <div className="grid grid-cols-1 items-center gap-12 lg:grid-cols-[minmax(0,0.92fr)_minmax(0,1.08fr)] lg:gap-12">
 
           {/* =========================================================
@@ -37,8 +33,19 @@ export function Hero() {
           <div className="min-w-0">
 
             {/* Eyebrow */}
-            <p className="eyebrow max-w-xs text-[0.62rem] tracking-[0.18em] text-[#5a6d66] sm:text-[0.7rem] lg:text-[0.75rem]">
-              {site.heroKicker}
+            <p
+              className="
+                eyebrow
+                max-w-xs
+                text-[0.62rem]
+                tracking-[0.18em]
+                text-[#5a6d66]
+                sm:text-[0.7rem]
+                lg:max-w-md
+                lg:text-[0.75rem]
+              "
+            >
+              Where body, mind & hormones come together
             </p>
 
             {/* Heading */}
@@ -61,14 +68,14 @@ export function Hero() {
                 lg:leading-[0.86]
               "
             >
-              Strength,
+              Feel stronger.
               <br />
-              Balance
+              Think clearer.
               <br />
-              &amp; Wellness
+              Live healthier.
             </h1>
 
-            {/* Intro */}
+            {/* Main description */}
             <p
               className="
                 mt-6
@@ -79,15 +86,33 @@ export function Hero() {
                 sm:mt-7
                 sm:text-[1.05rem]
                 lg:mt-8
-                lg:max-w-124
+                lg:max-w-[38rem]
                 lg:text-[1.08rem]
               "
             >
-              {site.heroIntro}
+              Specialized support for hormonal health, perimenopause and
+              menopause, weight and body composition, brain fog, stress, and
+              mental wellbeing.
+            </p>
+
+            {/* Approach */}
+            <p
+              className="
+                mt-4
+                max-w-[34rem]
+                text-[0.9rem]
+                leading-[1.7]
+                text-deep-teal/65
+                sm:text-[0.95rem]
+              "
+            >
+              Through movement, kinesiology, personalised nutrition and
+              mental-health therapies, we bring body and mind together for
+              lasting wellbeing.
             </p>
 
             {/* CTA */}
-            <div className="mt-7 sm:mt-8 lg:mt-8">
+            <div className="mt-7 flex flex-wrap items-center gap-3 sm:mt-8">
               <WhatsAppButton
                 showIcon={true}
                 className="
@@ -101,6 +126,41 @@ export function Hero() {
               >
                 Connect with me on WhatsApp
               </WhatsAppButton>
+
+              <a
+                href="#services"
+                className="
+                  group
+                  inline-flex
+                  min-h-12
+                  items-center
+                  gap-2
+                  rounded-full
+                  border
+                  border-deep-teal/15
+                  px-5
+                  text-sm
+                  font-medium
+                  text-deep-teal
+                  transition-all
+                  duration-300
+                  hover:-translate-y-0.5
+                  hover:border-deep-teal/30
+                  hover:bg-white/60
+                "
+              >
+                Explore services
+
+                <ArrowUpRight
+                  size={16}
+                  className="
+                    transition-transform
+                    duration-300
+                    group-hover:translate-x-0.5
+                    group-hover:-translate-y-0.5
+                  "
+                />
+              </a>
             </div>
 
             {/* Trust indicators */}
@@ -169,7 +229,6 @@ export function Hero() {
               RIGHT / PORTRAIT
           ========================================================== */}
           <div className="relative min-w-0">
-
             <div className="relative mx-auto w-full max-w-xl">
 
               {/* Portrait shadow */}
@@ -272,8 +331,8 @@ export function Hero() {
 
                 <p
                   className="
-                    font-hand
                     mt-3
+                    font-hand
                     text-[0.8rem]
                     leading-[1.35]
                     text-deep-teal/65
@@ -320,7 +379,7 @@ export function Hero() {
                     lg:text-[0.68rem]
                   "
                 >
-                  WELLNESS • GUIDANCE • BALANCE
+                  BODY • MIND • HORMONES • WELLBEING
                 </span>
               </div>
 
