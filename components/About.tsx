@@ -120,11 +120,13 @@ export function About() {
           <div className="grid items-center gap-16 lg:grid-cols-[0.95fr_1.05fr] lg:gap-20">
             {/* IMAGE CAROUSEL */}
             <div className="relative">
+              {/* Decorative circle */}
               <div
                 aria-hidden="true"
                 className="absolute -left-8 top-10 h-24 w-24 rounded-full border border-sage-dark/10 bg-sage/20"
               />
 
+              {/* Images + quote */}
               <div className="relative z-10 grid grid-cols-[1.25fr_0.9fr] gap-4">
                 {/* Main image */}
                 <div className="relative aspect-[0.78] overflow-hidden rounded-[2rem] bg-sage/10 shadow-[0_25px_70px_-30px_rgba(23,63,58,0.35)]">
@@ -163,8 +165,10 @@ export function About() {
                         className="object-cover"
                       />
 
+                      {/* Image gradient */}
                       <div className="absolute inset-0 bg-gradient-to-t from-deep-teal/25 via-transparent to-transparent" />
 
+                      {/* Image label */}
                       <div className="absolute bottom-5 left-5 rounded-full border border-white/30 bg-white/20 px-4 py-2 text-xs font-medium text-white backdrop-blur-md">
                         {currentImage.label}
                       </div>
@@ -195,6 +199,7 @@ export function About() {
 
               {/* Carousel controls */}
               <div className="relative z-20 mt-5 flex items-center justify-between">
+                {/* Counter */}
                 <div className="flex items-center gap-2 text-sm text-deep-teal/70">
                   <span className="font-medium text-deep-teal">
                     {String(active + 1).padStart(2, "0")}
@@ -205,6 +210,7 @@ export function About() {
                   <span>{String(total).padStart(2, "0")}</span>
                 </div>
 
+                {/* Dots */}
                 <div className="flex items-center gap-2">
                   {aboutImages.map((image, index) => (
                     <button
@@ -226,6 +232,7 @@ export function About() {
                   ))}
                 </div>
 
+                {/* Previous / Next */}
                 <div className="flex items-center gap-2">
                   <button
                     type="button"
@@ -286,30 +293,6 @@ export function About() {
                   className="transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
                 />
               </button>
-
-              {/* Statistics */}
-              <div className="mt-14 grid grid-cols-3 border-t border-deep-teal/10 pt-7">
-                <div>
-                  <p className="font-serif text-2xl text-deep-teal">1K+</p>
-                  <p className="mt-2 text-xs leading-relaxed text-muted sm:text-sm">
-                    Lives Impacted
-                  </p>
-                </div>
-
-                <div>
-                  <p className="font-serif text-2xl text-deep-teal">95%</p>
-                  <p className="mt-2 text-xs leading-relaxed text-muted sm:text-sm">
-                    Client Satisfaction
-                  </p>
-                </div>
-
-                <div>
-                  <p className="font-serif text-2xl text-deep-teal">3</p>
-                  <p className="mt-2 text-xs leading-relaxed text-muted sm:text-sm">
-                    Integrated Pathways
-                  </p>
-                </div>
-              </div>
             </div>
           </div>
         </div>
@@ -488,7 +471,6 @@ export function About() {
                     </p>
                   </div>
 
-                  {/* Bottom spacing */}
                   <div className="h-4 sm:h-6" />
                 </div>
               </div>
