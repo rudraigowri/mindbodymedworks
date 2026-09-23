@@ -372,7 +372,7 @@ export function Hero() {
                     lg:text-[0.68rem]
                   "
                 >
-                  BODY • MIND • HORMONES • WELLBEING
+                  Dr.Kavita
                 </span>
               </div>
 
