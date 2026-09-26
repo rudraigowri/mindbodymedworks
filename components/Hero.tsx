@@ -86,9 +86,9 @@ export function Hero() {
                 lg:text-[1.08rem]
               "
             >
-              Specialized support for hormonal imbalances, perimenopause and
-              menopause, unexplained weight gain and obesity, difficult fat
-              loss, muscle loss, brain fog, stress, and mental well-being.
+              Specialized support for unexplained weight gain and obesity, 
+              difficult fat loss, muscle loss, brain fog, stress, 
+              and mental well-being,hormonal imbalances due to PCOS, perimenopause and menopause.
             </p>
 
             {/* Approach */}
@@ -102,9 +102,8 @@ export function Hero() {
                 sm:text-[0.95rem]
               "
             >
-              Through movement, kinesiology, personalized nutrition, and
-              mental-health therapies, we work toward a stronger body, clearer
-              mind, and healthier life.
+              Through movement, kinesiology, personalized nutrition, and mental-health therapies, 
+              we work toward a stronger body, clearer mind, and healthier life.
             </p>
 
             {/* CTA */}

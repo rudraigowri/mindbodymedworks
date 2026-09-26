@@ -111,7 +111,7 @@
         "transform": "lodash/{{member}}"
       }
     },
-    "outputFileTracingRoot": "C:\\Users\\user\\Downloads\\mindbodymedworks",
+    "outputFileTracingRoot": "C:\\Users\\mahes\\Downloads\\client1",
     "enablePrerenderSourceMaps": true,
     "cacheComponents": false,
     "cacheLife": {
@@ -181,7 +181,7 @@
       "proxyPrefetch": "flexible",
       "optimisticClientCache": true,
       "manualClientBasePath": false,
-      "cpus": 23,
+      "cpus": 11,
       "memoryBasedWorkersCount": false,
       "imgOptConcurrency": null,
       "imgOptOperationCache": null,
@@ -326,13 +326,13 @@
     "htmlLimitedBots": "[\\w-]+-Google|Google-[\\w-]+|Chrome-Lighthouse|Slurp|DuckDuckBot|baiduspider|yandex|sogou|bitlybot|tumblr|vkShare|quora link preview|redditbot|ia_archiver|Bingbot|BingPreview|applebot|facebookexternalhit|facebookcatalog|Twitterbot|LinkedInBot|Slackbot|Discordbot|WhatsApp|SkypeUriPreview|Yeti|googleweblight",
     "bundlePagesRouterDependencies": false,
     "configFileName": "next.config.ts",
-    "repoRoot": "C:\\Users\\user\\Downloads\\mindbodymedworks",
+    "repoRoot": "C:\\Users\\mahes\\Downloads\\client1",
     "turbopack": {
-      "root": "C:\\Users\\user\\Downloads\\mindbodymedworks"
+      "root": "C:\\Users\\mahes\\Downloads\\client1"
     },
     "distDirRoot": ".next"
   },
-  "appDir": "C:\\Users\\user\\Downloads\\mindbodymedworks",
+  "appDir": "C:\\Users\\mahes\\Downloads\\client1",
   "relativeAppDir": "",
   "files": [
     ".next\\package.json",
